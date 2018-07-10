@@ -10,8 +10,9 @@ class SearchBar extends React.Component {
     };
   }
 
-  search = () => {
+  search = (e) => {
     this.props.onSearch(this.state.term);
+    e.target.previousElementSibling.value = '';
   }
 
   handleTermChange = (e) => {

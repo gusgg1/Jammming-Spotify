@@ -3,10 +3,6 @@ import TrackList from '../TrackList/TrackList';
 import './Playlist.css';
 
 class Playlist extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleNameChange = (e) => {
     this.props.onNameChange(e.target.value);
   }
