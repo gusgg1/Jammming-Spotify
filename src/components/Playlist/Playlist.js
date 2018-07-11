@@ -7,6 +7,12 @@ class Playlist extends React.Component {
     this.props.onNameChange(e.target.value);
   }
 
+  handleClick = (e) => {
+    if (this.props.playlistTracks.length === 0) return;
+    this.props.onSave();
+    e.target.parentNode.firstElementChild.value = 'New Playlist';
+  }
+
   render() {
     return (
       <div className="Playlist">
@@ -16,7 +22,7 @@ class Playlist extends React.Component {
             onRemove={this.props.onRemove}
             isRemoval={true}
           />
-        <a onClick={this.props.onSave} className="Playlist-save">SAVE TO SPOTIFY</a>
+        <a onClick={this.handleClick} className="Playlist-save">SAVE TO SPOTIFY</a>
       </div>
     );
   }
