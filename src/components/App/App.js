@@ -13,7 +13,8 @@ class App extends React.Component {
     this.state = {
       searchResults: [],
       playlistName: 'New Playlist',
-      playlistTracks: []
+      playlistTracks: [],
+      loading: null
     };
   }
 
@@ -37,18 +38,32 @@ class App extends React.Component {
   }
 
   savePlaylist = () => {
+    this.setState({ loading: true });
     const trackURIs = this.state.playlistTracks.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
       this.setState({
         playlistName: 'New Playlist',
-        playlistTracks: []
+        playlistTracks: [],
+        loading: false
       });
     });
   }
 
   search = (term) => {
+    let playlistTracksIDs = [];
+    if (this.state.playlistTracks.length) {
+      playlistTracksIDs = this.state.playlistTracks.map(track => track.id);      
+    }       
+
     Spotify.search(term).then(searchResults => {
-      this.setState({ searchResults: searchResults });
+      if (playlistTracksIDs.length) {
+        const filteredResults = searchResults.filter(result => {
+          return playlistTracksIDs.indexOf(result.id) === -1;
+        });
+        this.setState({ searchResults: filteredResults });
+      } else {
+        this.setState({ searchResults: searchResults });
+      }
     });
   }
 
@@ -58,7 +73,9 @@ class App extends React.Component {
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           <SearchBar 
-            onSearch={this.search} 
+            onSearch={this.search}
+            isLoading={this.state.loading} 
+            searchResults={this.state.searchResults}
           />
           <div className="App-playlist">
             <SearchResults 
