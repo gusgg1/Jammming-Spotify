@@ -6,7 +6,7 @@
 * Pressing enter triggers a search
 * Preview sample for each track included
 * The app does not display songs in the results that are currently present in the playlist
-* A loading screen appears while plalist is saving
+* A loading screen appears while playlist is saving
 * After user redirect on login, the search term from before the redirect is restored
 
 
