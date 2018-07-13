@@ -1,3 +1,17 @@
+# [Jammming](https://myplaylist-gaf.surge.sh/)
+
+###### This is the third project for the *Build Front-End Web Applications from Scratch* intensive course.
+
+#### This app allows you to search the Spotify library, create a custom playlist, then save it to your own Spotify account.
+* Pressing enter triggers a search
+* Preview sample for each track included
+* The app does not display songs in the results that are currently present in the playlist
+* A loading screen appears while plalist is saving
+* After user redirect on login, the search term from before the redirect is restored
+
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

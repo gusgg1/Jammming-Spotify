@@ -63,10 +63,3 @@ class SearchBar extends React.Component {
 }
 
 export default SearchBar;
-
-
-
-// const term = e.target.value;
-// sessionStorage.setItem("searchTerm", term);
-// const storedTerm = sessionStorage.getItem("searchTerm");
-// console.log(storedTerm);

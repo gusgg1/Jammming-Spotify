@@ -1,5 +1,5 @@
 const clientId = '3212a2c2c78a4fd1887022388f7ebb46';
-const redirectUri = 'http://myplaylist-gaf.surge.sh';
+const redirectUri = 'https://myplaylist-gaf.surge.sh';
 
 let accessToken;
 
@@ -16,7 +16,7 @@ const Spotify = {
       const expiresIn = Number(expiresInMatch[1]);
       window.setTimeout(() => accessToken = '', expiresIn * 10000);
 
-      // This clears the parameters, allowing us to grab a new access token when it expires.
+      // Clearing parameters, allowing us to get a new access token when it expires
       window.history.pushState('Access Token', null, '/'); 
       return accessToken;
     } else {
