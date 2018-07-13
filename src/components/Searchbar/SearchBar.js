@@ -6,8 +6,7 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: '',
-      storedTerm: ''
+      term: ''
     };
   }
 
@@ -15,60 +14,47 @@ class SearchBar extends React.Component {
     this.props.onSearch(this.state.term);
   }
 
-  handleRedirect = (term) => {
-    if (!this.props.searchResults.length) {
-      sessionStorage.setItem("searchTerm", term);
-      const storedTerm = sessionStorage.getItem("searchTerm");
-      if (this.state.storedTerm === '') this.setState({ storedTerm });
-    }
-  
-    console.log(this.state.storedTerm);
-    console.log(window.location.href);            
-    console.log(this.props.searchResults)
-    
-    
+  componentDidMount() {
+    const storedTerm = sessionStorage.getItem("searchTerm");
+    this.input.value = storedTerm;
+    this.setState({ term: storedTerm });
+  }
 
-    // if (window.location.href.includes('access_token')) {
-    //   console.log(storedTerm);      
-    // }
+  handleRedirect = (term) => {
+    const storedTerm = sessionStorage.getItem("searchTerm");
+    if (storedTerm) {
+      return;
+    }
+    sessionStorage.setItem("searchTerm", term);
   }
 
   handleClick = (e) => {
-    // this.handleRedirect(e.target.previousElementSibling.value);
-
-
+    this.handleRedirect(this.input.value);
     this.search();    
-    e.target.previousElementSibling.value = '';
   }
-
-
-
 
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
+      this.handleRedirect(this.input.value);
       this.search();
-      e.target.value = '';
     }
   }
 
   handleTermChange = (e) => {
     const term = e.target.value;
-    if (!this.props.searchResults.length) {
-      localStorage.setItem("searchTerm", term);
-      // const storedTerm = sessionStorage.getItem("searchTerm");
-      this.setState({ storedTerm: localStorage.getItem("searchTerm") });
-      console.log(this.state.storedTerm);           
-      // if (this.state.storedTerm === '') this.setState({ storedTerm });
-    }
-
-
     this.setState({ term });
   }
 
   render() {
     return (
       <div className="SearchBar">
-        <input onKeyPress={this.handleKeyPress} onChange={this.handleTermChange} placeholder="Enter A Song, Album, or Artist" />
+        <input 
+          type="search"
+          onKeyPress={this.handleKeyPress} 
+          onChange={this.handleTermChange} 
+          placeholder="Enter A Song, Album, or Artist"
+          ref={node => this.input = node} 
+        />
         <a onClick={this.handleClick}>SEARCH</a>
         {this.props.isLoading ? <Loading /> : null}
       </div>
