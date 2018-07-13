@@ -1,5 +1,5 @@
 const clientId = '3212a2c2c78a4fd1887022388f7ebb46';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://myplaylist-gaf.surge.sh';
 
 let accessToken;
 
